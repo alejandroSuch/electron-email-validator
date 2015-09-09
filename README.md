@@ -1,1 +1,1 @@
-# electron-boilerplate
+# Electron email validator
