@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello Electron!</title>
-    <style>
-    </style>
-  </head>
-  <body>
-    <h1>Hello Electron!</h1>
-  </body>
+<head>
+    <title>Validador de emails</title>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css"/>
+</head>
+<body>
+
+
+<md-bottom-sheet style="bottom: 80px; padding:12px 12px 12px 0; text-align: right">
+	<div>asdasdasd</div>
+</md-bottom-sheet>
+<div layout="column">
+	<md-toolbar class="md-default-theme">
+		<div class="md-toolbar-tools">Validador de emails</div>
+	</md-toolbar>
+	<md-content role="main">
+		<form name="singleEmailForm" ng-controller="SingleEmailValidationCtrl as vm" ng-submit="vm.validate($event)">
+			<md-content layout-padding layout="row">
+				<md-input-container style="width:75%">
+					<label>Email</label>
+					<input ng-model="vm.email" placeholder="user@example.com"/>
+				</md-input-container>
+				<md-input-container style="width:25%">
+					<md-button class="md-raised md-primary" type="submit">Validar</md-button>
+				</md-input-container>
+			</md-content>
+		</form>
+	</md-content>
+</div>
+
+
+<script>
+    var App = require('./app/modules/App');
+    App.init();
+</script>
+</body>
 </html>
