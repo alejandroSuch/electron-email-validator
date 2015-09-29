@@ -37,6 +37,22 @@ class Modals {
 		</md-dialog>
 	`;
 
+	private invalidFileTypeTpl:string = `
+		<md-dialog aria-label="Tipo de fichero inválido">
+			<form>
+				<md-toolbar class="md-accent">
+					<div class="md-toolbar-tools">
+						<h2>Tipo de fichero erróneo</h2>
+						<span flex></span>
+					</div>
+				</md-toolbar>
+				<md-dialog-content>
+					<p>Por favor, arrastra un fichero de texto, csv o excel</p>
+				</md-dialog-content>
+			</form>
+		</md-dialog>
+	`;
+
 	constructor($mdDialog) {
 		this.$mdDialog = $mdDialog;
 	}
@@ -62,6 +78,13 @@ class Modals {
 		};
 
 		return this.show(controller, this.validationResultTpl, true);
+	};
+
+	public showInvalidFileTypeModal = ():angular.IPromise<any> => {
+		var controller = () => {
+		};
+
+		return this.show(controller, this.invalidFileTypeTpl, true);
 	};
 
 	private show = (controller, template, canBeClosed):angular.IPromise<any> => {

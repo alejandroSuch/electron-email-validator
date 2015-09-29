@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Validador de emails</title>
-    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css"/>
+	<meta charset="utf-8"/>
+	<title>Validador de emails</title>
+	<link rel="stylesheet" href="node_modules/angular-material/angular-material.css"/>
 </head>
 <body>
 
 
 <md-bottom-sheet style="bottom: 80px; padding:12px 12px 12px 0; text-align: right">
-	<div>asdasdasd</div>
+	<div>2015 Alejandro Such</div>
 </md-bottom-sheet>
-<div layout="column">
-	<md-toolbar class="md-default-theme">
-		<div class="md-toolbar-tools">Validador de emails</div>
-	</md-toolbar>
+<md-toolbar class="md-default-theme">
+	<div class="md-toolbar-tools">Validador de emails</div>
+</md-toolbar>
+<div layout="column" flex style="height: 471px">
 	<md-content role="main">
 		<form name="singleEmailForm" ng-controller="SingleEmailValidationCtrl as vm" ng-submit="vm.validate($event)">
 			<md-content layout-padding layout="row">
@@ -27,12 +28,119 @@
 			</md-content>
 		</form>
 	</md-content>
+
+	<md-card drop-zone allowed-types="text/plain,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+		<md-card-content>
+			<h2 class="md-title">Ficheros</h2>
+			<p>
+				Arrastra aquí un fichero de texto, csv o excel para procesar el contenido
+			</p>
+		</md-card-content>
+	</md-card>
+
+	<section layout="row" layout-sm="column" layout-align="end end" layout-wrap>
+		<md-button
+				class="md-fab md-mini md-button md-default-theme"
+				ng-controller="LogCtrl as log"
+				ng-disabled="log.hasLines()"
+				ng-click="log.toggleVisible()">
+			Log
+		</md-button>
+	</section>
 </div>
+<div layout="column" layout-align="center center" layout-padding="8px">
+
+</div>
+
+<style>
+	.drag-over {
+		background-color: rgba(158, 158, 158, 0.2);
+	}
+
+	.log {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 70;
+		box-sizing: border-box;
+		-webkit-transition: all 1s cubic-bezier(0.24, 0.56, 0.58, 1);
+		-moz-transition: all 1s cubic-bezier(0.24, 0.56, 0.58, 1);
+		-o-transition: all 1s cubic-bezier(0.24, 0.56, 0.58, 1);
+		transition: all 1s cubic-bezier(0.24, 0.56, 0.58, 1);
+	}
+
+	.log.visible {
+		top:0;
+		height: 100%;
+	}
+
+	.log .header-container {
+		text-align: center;
+	}
+
+	.log .header {
+		background-color: #FDFFC3;
+		box-sizing: border-box;
+		display: inline-block;
+		padding: 8px;
+		margin: 0;
+		position: relative;
+		margin: 0 auto;
+		text-align: center;
+		-webkit-filter: opacity(0.9);
+		filter: opacity(0.9);
+		border-radius: 15px 15px 0 0;
+		font-size: 10px;
+		font-family: Verdana;
+	}
+
+	.log .header:after {
+		content: "\25B2";
+		font-size: 7px;
+	}
+
+	.log.visible .header:after {
+		content: "\25BC";
+		font-size: 7px;
+	}
+
+	.log .header a {
+		outline: 0;
+		cursor: pointer;
+	}
+
+	.log .content {
+		display: none;
+	}
+
+	.log.visible .content {
+		background-color: #FDFFC3;
+		box-sizing: border-box;
+		position: absolute;
+		margin: 0;
+		padding: 8px;
+		-webkit-filter: opacity(0.9);
+		filter: opacity(0.9);
+		top: 28px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: block;
+		overflow: scroll;
+	}
+
+	.log.visible-add, .log.visible-remove {
+		/*//-webkit-transform: translate(0, 1000px);
+		//transform: translate(0, 1000px);*/
+	}
+</style>
 
 
 <script>
-    var App = require('./app/modules/App');
-    App.init();
+	var App = require('./app/modules/App');
+	angular.element(document)
+	App.init();
 </script>
 </body>
 </html>

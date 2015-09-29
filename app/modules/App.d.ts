@@ -6,5 +6,6 @@ declare class App {
     static initialized: boolean;
     static app: angular.IModule;
     static init(): void;
+    private static disableDrop();
 }
 export = App;

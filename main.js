@@ -26,4 +26,9 @@ app.on('ready', function() {
     mainWindow.openDevTools()
   }
 
-})
+  app.on('open-file', function(event, pathToOpen) {
+    event.preventDefault();
+    console.log(pathToOpen);
+  });
+
+});

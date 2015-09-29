@@ -34,10 +34,17 @@ class SingleEmailValidationCtrl {
 
 		var finallyCallback = () => {
 			var showValidationResultModal:Function = () => {
-				this.modals.showValidationResultModal(this.email, this.error);
+				this
+					.modals
+					.showValidationResultModal(this.email, this.error)
+					.finally(() => {
+						document
+							.querySelector('input[ng-model="vm.email"')
+							.select();
+					});
 			};
 
-            this
+			this
 				.modals
 				.hideModals()
 				.then(showValidationResultModal);
@@ -56,7 +63,7 @@ class SingleEmailValidationCtrl {
 			.hideModals()
 			.then(() => {
 				this
-				.emailVerifierService
+					.emailVerifierService
 					.validate(this.email)
 					.then(successCallback)
 					.catch(errorCallback)

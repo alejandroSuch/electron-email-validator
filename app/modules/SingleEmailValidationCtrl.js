@@ -18,7 +18,14 @@ var SingleEmailValidationCtrl = (function () {
         this.modals.showValidateEmailModal(this.email);
         var finallyCallback = function () {
             var showValidationResultModal = function () {
-                _this.modals.showValidationResultModal(_this.email, _this.error);
+                _this
+                    .modals
+                    .showValidationResultModal(_this.email, _this.error)
+                    .finally(function () {
+                    document
+                        .querySelector('input[ng-model="vm.email"')
+                        .select();
+                });
             };
             _this
                 .modals

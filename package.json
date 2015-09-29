@@ -32,6 +32,7 @@
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
     "email-verify": "0.0.15",
+    "mime-types": "^2.1.7",
     "oclazyload": "^1.0.5"
   }
 }
