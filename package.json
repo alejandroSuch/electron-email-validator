@@ -19,6 +19,13 @@
   "homepage": "http://alejandrosuch.github.io/electron-email-validator",
   "devDependencies": {
     "chai": "^2.3.0",
+    "electron-builder": "^2.0.0",
+    "electron-packager": "^5.1.0",
+    "electron-prebuilt": "^0.33.5",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-electron": "0.0.9",
+    "gulp-uglify": "^1.4.1",
     "mocha": "^2.2.5",
     "proxyquire": "^1.4.0",
     "sinon": "^1.14.1",
@@ -32,6 +39,7 @@
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
     "email-verify": "0.0.15",
+    "freemail": "^1.0.0",
     "mime-types": "^2.1.7",
     "oclazyload": "^1.0.5"
   }

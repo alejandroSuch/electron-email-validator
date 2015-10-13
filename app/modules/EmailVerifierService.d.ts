@@ -4,7 +4,10 @@ declare class EmailVerifierService {
     static $inject: string[];
     private $q;
     private logService;
-    constructor($q: angular.IQService, logService: LogService);
+    private $log;
+    constructor($q: angular.IQService, logService: LogService, $log: angular.ILogService);
     validate(email: string): angular.IPromise<any>;
+    processFile(path: string): ng.IPromise<{}>;
+    private processPlainText;
 }
 export = EmailVerifierService;

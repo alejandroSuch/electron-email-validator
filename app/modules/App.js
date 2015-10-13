@@ -5,12 +5,9 @@ require('../../node_modules/angular-aria/angular-aria.min');
 require('../../node_modules/angular-material/angular-material.min');
 require('../../node_modules/angular-ui-router/release/angular-ui-router.min');
 var Constants = require('./Constants');
-var LogCtrl = require('./LogCtrl');
-var LogService = require('./LogService');
-var SingleEmailValidationCtrl = require('./SingleEmailValidationCtrl');
-var EmailVerifierService = require('./EmailVerifierService');
-var Modals = require('./Modals');
-var DropZone = require('./DropZone');
+var remote = require('remote');
+var Menu = remote.require('menu');
+var MenuItem = remote.require('menu-item');
 var App = (function () {
     function App() {
     }
@@ -35,12 +32,10 @@ var App = (function () {
         configurable: true
     });
     App.init = function () {
-        App._app.service('EmailVerifierService', EmailVerifierService);
-        App._app.service('Modals', Modals);
-        App._app.controller('SingleEmailValidationCtrl', SingleEmailValidationCtrl);
-        App._app.controller('LogCtrl', LogCtrl);
-        App._app.service('LogService', LogService);
-        App._app.directive('dropZone', DropZone.factory());
+        this.declareAngularComponents();
+        window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        }, false);
         if (!App.initialized) {
             angular.element(document).ready(function () {
                 angular.bootstrap(document, ['electron-email-validator']);
@@ -48,6 +43,24 @@ var App = (function () {
             });
         }
         App.disableDrop();
+    };
+    App.declareAngularComponents = function () {
+        this.declareControllers();
+        this.declareServices();
+        this.declareDirectives();
+    };
+    App.declareDirectives = function () {
+        App._app.directive('dropZone', require('./DropZone').factory());
+    };
+    App.declareServices = function () {
+        App._app.service('EmailVerifierService', require('./EmailVerifierService'));
+        App._app.service('Modals', require('./Modals'));
+        App._app.service('LogService', require('./LogService'));
+    };
+    App.declareControllers = function () {
+        App._app.controller('SingleEmailValidationCtrl', require('./SingleEmailValidationCtrl'));
+        App._app.controller('MultipleEmailValidationCtrl', require('./MultipleEmailValidationCtrl'));
+        App._app.controller('LogCtrl', require('./LogCtrl'));
     };
     App.disableDrop = function () {
         document.addEventListener('dragover', function (event) {

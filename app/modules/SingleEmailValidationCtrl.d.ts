@@ -1,6 +1,7 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="EmailVerifierService.d.ts" />
 /// <reference path="Modals.d.ts" />
+import EmailVerifierService = require('./EmailVerifierService');
 declare class SingleEmailValidationCtrl {
     static $inject: string[];
     private $q;

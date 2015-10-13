@@ -8,6 +8,7 @@ var mime:any = remote.require('mime-types');
 class DropZone implements ng.IDirective {
 	private _modals:Modals;
 	restrict = 'A';
+	require = 'ngController';
 
 	constructor(modals:Modals) {
 		this._modals = modals;
@@ -31,27 +32,25 @@ class DropZone implements ng.IDirective {
 
 		element.on('dragover', startFn);
 		element.on('dragleave', endFn);
-		element.on('drop', (event) => {
-			endFn(event);
-
-			let allowedTypes = attrs['allowedTypes'];
-			let allowedTypesArray = allowedTypes.split(',');
-			let file = event.dataTransfer.files[0];
-			let mimeType = mime.lookup(file.path);
-
-			if (allowedTypesArray.indexOf(mimeType) < 0) {
-				this._modals.showInvalidFileTypeModal();
-				return;
-			}
-
-			return false;
-		});
 		element.on('dragend', endFn);
 
-		return this.link;
-	};
+		return (scope:ng.IScope, element:ng.IAugmentedJQuery, attrs:ng.IAttributes, ctrl:any) => {
+			element.on('drop', (event) => {
+				endFn(event);
 
-	link = (scope:ng.IScope, element:ng.IAugmentedJQuery, attrs:ng.IAttributes, ctrl:any) => {
+				let allowedTypes = attrs['allowedTypes'];
+				let allowedTypesArray = allowedTypes.split(',');
+				let file = event.dataTransfer.files[0];
+				let mimeType = mime.lookup(file.path);
+
+				if (allowedTypesArray.indexOf(mimeType) < 0) {
+					this._modals.showInvalidFileTypeModal();
+					return;
+				}
+
+				ctrl[attrs['onDropFile']].call(ctrl, file.path);
+			});
+		};
 	};
 
 	static factory():ng.IDirectiveFactory {

@@ -43,12 +43,6 @@ class LogCtrl {
 								<md-list-item ng-repeat="entry in vm.getLogEntries()">
 									<span><span ng-if="entry.success">&#10003;</span><span ng-if="entry.error">&#10007;</span> [{{ entry.date | date:'dd-MM-yyyy HH:mm:ss' }}] <strong>{{ entry.emailAddress }}</strong>: {{ entry.message || '' }}</span>
 								</md-list-item>
-								<md-list-item ng-repeat="entry in vm.getLogEntries()">
-									<span><span ng-if="entry.success">&#10003;</span><span ng-if="entry.error">&#10007;</span> [{{ entry.date | date:'dd-MM-yyyy HH:mm:ss' }}] <strong>{{ entry.emailAddress }}</strong>: {{ entry.message || '' }}</span>
-								</md-list-item>
-								<md-list-item ng-repeat="entry in vm.getLogEntries()">
-									<span><span ng-if="entry.success">&#10003;</span><span ng-if="entry.error">&#10007;</span> [{{ entry.date | date:'dd-MM-yyyy HH:mm:ss' }}] <strong>{{ entry.emailAddress }}</strong>: {{ entry.message || '' }}</span>
-								</md-list-item>
 							</md-list>
 						</md-bottom-sheet>
 					`

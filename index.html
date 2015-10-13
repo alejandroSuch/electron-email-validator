@@ -8,13 +8,21 @@
 <body>
 
 
-<md-bottom-sheet style="bottom: 80px; padding:12px 12px 12px 0; text-align: right">
-	<div>2015 Alejandro Such</div>
+<md-bottom-sheet class="nodrag" style="bottom: 80px; padding:12px 12px 12px 0; text-align: right; background: none; border: none;">
+	<section layout="row" layout-sm="column" layout-align="end end" layout-wrap>
+		<md-button
+				class="md-fab md-mini md-button md-default-theme"
+				ng-controller="LogCtrl as log"
+				ng-show="log.hasLines()"
+				ng-click="log.toggleVisible()">
+			Log
+		</md-button>
+	</section>
 </md-bottom-sheet>
 <md-toolbar class="md-default-theme">
 	<div class="md-toolbar-tools">Validador de emails</div>
 </md-toolbar>
-<div layout="column" flex style="height: 471px">
+<div class="nodrag" layout="column" flex style="height: 471px">
 	<md-content role="main">
 		<form name="singleEmailForm" ng-controller="SingleEmailValidationCtrl as vm" ng-submit="vm.validate($event)">
 			<md-content layout-padding layout="row">
@@ -29,7 +37,12 @@
 		</form>
 	</md-content>
 
-	<md-card drop-zone allowed-types="text/plain,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+	<md-card
+			drop-zone
+			ng-controller="MultipleEmailValidationCtrl as vm"
+			allowed-types="text/plain,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+			on-drop-file="processFile"
+			>
 		<md-card-content>
 			<h2 class="md-title">Ficheros</h2>
 			<p>
@@ -37,22 +50,21 @@
 			</p>
 		</md-card-content>
 	</md-card>
-
-	<section layout="row" layout-sm="column" layout-align="end end" layout-wrap>
-		<md-button
-				class="md-fab md-mini md-button md-default-theme"
-				ng-controller="LogCtrl as log"
-				ng-disabled="log.hasLines()"
-				ng-click="log.toggleVisible()">
-			Log
-		</md-button>
-	</section>
-</div>
-<div layout="column" layout-align="center center" layout-padding="8px">
-
 </div>
 
 <style>
+	body {
+		-webkit-app-region: drag;
+	}
+
+	* {
+		-webkit-user-select: none;
+	}
+
+	.nodrag {
+		-webkit-app-region: no-drag;
+	}
+
 	.drag-over {
 		background-color: rgba(158, 158, 158, 0.2);
 	}
@@ -139,7 +151,6 @@
 
 <script>
 	var App = require('./app/modules/App');
-	angular.element(document)
 	App.init();
 </script>
 </body>

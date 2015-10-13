@@ -2,8 +2,7 @@
 /// <reference path="./EmailVerifierService.d.ts" />
 /// <reference path="./Modals.d.ts" />
 
-var remote:any = require('remote');
-var EmailVerifier = remote.require('./app/modules/remote/EmailVerifier');
+import EmailVerifierService = require('./EmailVerifierService');
 
 class SingleEmailValidationCtrl {
 	static $inject = ['$q', '$mdDialog', 'EmailVerifierService', 'Modals'];

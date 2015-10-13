@@ -5,6 +5,7 @@ var DropZone = (function () {
     function DropZone(modals) {
         var _this = this;
         this.restrict = 'A';
+        this.require = 'ngController';
         this.compile = function (element, attrs) {
             var cancelEvent = function (event) {
                 event.preventDefault();
@@ -20,22 +21,21 @@ var DropZone = (function () {
             };
             element.on('dragover', startFn);
             element.on('dragleave', endFn);
-            element.on('drop', function (event) {
-                endFn(event);
-                var allowedTypes = attrs['allowedTypes'];
-                var allowedTypesArray = allowedTypes.split(',');
-                var file = event.dataTransfer.files[0];
-                var mimeType = mime.lookup(file.path);
-                if (allowedTypesArray.indexOf(mimeType) < 0) {
-                    _this._modals.showInvalidFileTypeModal();
-                    return;
-                }
-                return false;
-            });
             element.on('dragend', endFn);
-            return _this.link;
-        };
-        this.link = function (scope, element, attrs, ctrl) {
+            return function (scope, element, attrs, ctrl) {
+                element.on('drop', function (event) {
+                    endFn(event);
+                    var allowedTypes = attrs['allowedTypes'];
+                    var allowedTypesArray = allowedTypes.split(',');
+                    var file = event.dataTransfer.files[0];
+                    var mimeType = mime.lookup(file.path);
+                    if (allowedTypesArray.indexOf(mimeType) < 0) {
+                        _this._modals.showInvalidFileTypeModal();
+                        return;
+                    }
+                    ctrl[attrs['onDropFile']].call(ctrl, file.path);
+                });
+            };
         };
         this._modals = modals;
     }

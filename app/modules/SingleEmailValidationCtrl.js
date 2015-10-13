@@ -1,8 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="./EmailVerifierService.d.ts" />
 /// <reference path="./Modals.d.ts" />
-var remote = require('remote');
-var EmailVerifier = remote.require('./app/modules/remote/EmailVerifier');
 var SingleEmailValidationCtrl = (function () {
     function SingleEmailValidationCtrl($q, $mdDialog, emailVerifierService, modals) {
         this.$q = $q;
